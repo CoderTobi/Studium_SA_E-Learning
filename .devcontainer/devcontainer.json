@@ -1,0 +1,55 @@
+// For format details, see https://aka.ms/devcontainer.json
+{
+  "name": "E-Learning",
+
+  // Node + TypeScript on Debian, non-root user "node"
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:1-24-bookworm",
+
+  "features": {
+    //"ghcr.io/devcontainers/features/git:1": {}
+  },
+
+  // Vite dev server (5173) and `vite preview` (4173).
+  // If you also run the Express backend in this container, add its port (e.g. 3000).
+  "forwardPorts": [5173, 4173],
+  "portsAttributes": {
+    "5173": { "label": "SvelteKit dev", "onAutoForward": "openBrowser" },
+    "4173": { "label": "SvelteKit preview", "onAutoForward": "silent" }
+  },
+
+  // Persist the Claude Code login, settings and sessions across rebuilds.
+  // CLAUDE_CONFIG_DIR makes Claude keep everything (including .claude.json)
+  // inside this one directory, so a single volume covers it all.
+  "mounts": [
+    "source=claude-code-config-${devcontainerId},target=/home/node/.claude,type=volume"
+  ],
+  "containerEnv": {
+    "CLAUDE_CONFIG_DIR": "/home/node/.claude"
+  },
+
+  // New volumes are root-owned, so hand it to the "node" user first.
+  "postCreateCommand": "sudo chown -R node:node /home/node/.claude && npm install",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "svelte.svelte-vscode",
+        "bradlc.vscode-tailwindcss",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "anthropic.claude-code"
+      ],
+      "settings": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "[svelte]": {
+          "editor.defaultFormatter": "svelte.svelte-vscode"
+        },
+        "svelte.enable-ts-plugin": true,
+        "js/ts.tsdk.path": "node_modules/typescript/lib",
+        "files.eol": "\n"
+      }
+    }
+  },
+
+  "remoteUser": "node"
+}
