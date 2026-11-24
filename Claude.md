@@ -75,7 +75,7 @@
     - Verwendet vom Content Manager
 
 # Patterns
-- Die von uns ausgewählten Muster sind: Signleton, Adapter, Observer
+- Die von uns ausgewählten Muster sind: Singleton, Adapter, Observer
 - Ein anderer Agent hat die relevanten Folien bereits in ein [MD file](Spezifikation_Entwurfsmuster.md) für dich umgewandelt
 ## Singleton
 - Verwendung für die Erstellung der Datenbank Instanz
