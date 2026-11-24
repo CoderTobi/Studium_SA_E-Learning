@@ -1,6 +1,7 @@
 // Entities shared by all layers (returned by the repositories).
 
-export type Role = 'student' | 'teacher' | 'admin';
+export const ROLES = ['student', 'teacher', 'admin'] as const;
+export type Role = (typeof ROLES)[number];
 
 export interface User {
 	id: number;
