@@ -16,13 +16,15 @@ class DBInstance {
 
 // Define the target interface for database operations
 abstract interface class IDatabaseAdapter {
+    // Datatypes for parameters and return values are just examples
+    // We probably would need multiple methods for different types of queries
     List<Map<String, dynamic>> executeQuery(String query, {Map<String, dynamic> parameters});
 }
 
 // Implement the adapter for SQLite
 class SQLiteDB implements IDatabaseAdapter {
 
-    SQLiteDatabase _database;
+    late SQLiteDatabase _database;
 
     SQLiteDB() {
         // Initialize the database connection
@@ -39,7 +41,7 @@ class SQLiteDB implements IDatabaseAdapter {
 // Implement the adapter for PostgreSQL
 class PostgreSQLDB implements IDatabaseAdapter {
 
-    PostgreSQLConnection _connection;
+    late PostgreSQLConnection _connection;
 
     PostgreSQLDB() {
         // Initialize the database connection
